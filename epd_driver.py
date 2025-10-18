@@ -76,26 +76,56 @@ class EPD_4in26:
         self.digital_write(PWR_PIN, GPIO.LOW)
         print("Power off.")
 
+    # def init(self):
+    #     print("Initializing EPD...")
+    #     self.power_on()
+    #     self.reset()
+    #     # Example initialization commands (may vary by controller)
+    #     self.send_command(0x01)  # POWER_SETTING
+    #     self.send_data([0x03, 0x00, 0x2B, 0x2B, 0x13])
+
+    #     self.send_command(0x06)  # BOOSTER_SOFT_START
+    #     self.send_data([0x17, 0x17, 0x17])
+
+    #     self.send_command(0x04)  # POWER_ON
+    #     self.wait_until_idle()
+
+    #     self.send_command(0x00)  # PANEL_SETTING
+    #     self.send_data(0x3F)
+
+    #     self.send_command(0x30)  # PLL_CONTROL
+    #     self.send_data(0x3C)
+
+    #     print("EPD init done.")
     def init(self):
         print("Initializing EPD...")
-        self.power_on()
+        try:
+            self.power_on()
+        except Exception:
+            print("Skipping power pin activation (not used)")
         self.reset()
-        # Example initialization commands (may vary by controller)
-        self.send_command(0x01)  # POWER_SETTING
-        self.send_data([0x03, 0x00, 0x2B, 0x2B, 0x13])
 
-        self.send_command(0x06)  # BOOSTER_SOFT_START
+        # Some 4.26 controllers need an initial dummy command:
+        self.send_command(0x00)
+        self.send_data(0x0F)
+
+        # Power settings
+        self.send_command(0x01)
+        self.send_data([0x03, 0x00, 0x2B, 0x2B, 0x09])
+
+        self.send_command(0x06)
         self.send_data([0x17, 0x17, 0x17])
 
-        self.send_command(0x04)  # POWER_ON
-        self.wait_until_idle()
+        self.send_command(0x04)
+        print("Sent POWER_ON")
+        self.delay_ms(200)
+        #self.wait_until_idle()
 
-        self.send_command(0x00)  # PANEL_SETTING
+        self.send_command(0x00)
         self.send_data(0x3F)
 
-        self.send_command(0x30)  # PLL_CONTROL
+        self.send_command(0x30)
         self.send_data(0x3C)
-
         print("EPD init done.")
 
     def clear(self):
