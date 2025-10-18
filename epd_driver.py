@@ -132,10 +132,10 @@ class EPD_4in26:
         # Example clear sequence (white)
         print("Clearing display...")
         self.send_command(0x10)
-        for _ in range(400 * 300 // 8):  # Adjust resolution if needed
+        for _ in range(800 * 480 // 8):  # Adjust resolution if needed
             self.send_data(0xFF)
         self.send_command(0x13)
-        for _ in range(400 * 300 // 8):
+        for _ in range(800 * 480 // 8):
             self.send_data(0xFF)
         self.send_command(0x12)  # DISPLAY_REFRESH
         self.wait_until_idle()
