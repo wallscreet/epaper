@@ -6,8 +6,8 @@ import time
 class EPDDisplay:
     def __init__(self):
         self.epd = EPD_4in26()
-        self.width = 400    # adjust for your specific panel resolution
-        self.height = 300
+        self.width = 800    # adjust for your specific panel resolution
+        self.height = 480
 
     def initialize(self):
         """Initialize and clear the screen."""
