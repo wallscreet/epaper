@@ -11,6 +11,7 @@ PWR_PIN = 18
 MOSI_PIN = 10
 SCLK_PIN = 11
 
+
 class EPaper:
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
