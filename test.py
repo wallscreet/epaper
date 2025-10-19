@@ -23,6 +23,18 @@ try:
     font35 = ImageFont.truetype('Font.ttc', 35)
     font55 = ImageFont.truetype('Font.ttc', 55)
 
+    # Loading the logo
+    logging.info("Loading and converting logo...")
+    logo = Image.open('logo.png')  # Your logo file
+    logo = logo.convert('L')  # Convert to grayscale
+    logo = logo.convert('1')  # Convert to 1-bit monochrome (black/white)
+    max_size = (200, 200) # Resize logo
+    logo.thumbnail(max_size, Image.Resampling.LANCZOS)  # Resize while preserving aspect ratio
+
+    logo_width, logo_height = logo.size
+    logo_x = (epd.height - logo_width) // 2  # Center horizontally
+    logo_y = 100  # Center vertically
+
     # Drawing on the Vertical image
     logging.info("Drawing on the Vertical image...")
     Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
@@ -44,6 +56,8 @@ try:
     x2 = (epd.height - text2_width) // 2  # Left margin
     y2 = y + text_height + 20  # Below first text
     draw.text((x2, y2), text2, font=font35, fill=0)
+
+    Limage.paste(logo, (logo_x, logo_y))
 
     epd.display(epd.getbuffer(Limage))
     time.sleep(10)
