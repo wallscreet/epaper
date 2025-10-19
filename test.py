@@ -21,98 +21,32 @@ try:
     font24 = ImageFont.truetype('Font.ttc', 24)
     font18 = ImageFont.truetype('Font.ttc', 18)
     font35 = ImageFont.truetype('Font.ttc', 35)
+    font55 = ImageFont.truetype('Font.ttc', 55)
 
     # Drawing on the Vertical image
     logging.info("Drawing on the Vertical image...")
     Limage = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
     draw = ImageDraw.Draw(Limage)
-    draw.text((2, 0), 'Hello, world!', font = font18, fill = 0)
-    draw.text((2, 20), 'www.coreaderai.com', font = font18, fill = 0)
-    # draw.text((20, 50), u'微雪电子', font = font18, fill = 0)
-    # draw.line((10, 90, 60, 140), fill = 0)
-    # draw.line((60, 90, 10, 140), fill = 0)
-    # draw.rectangle((10, 90, 60, 140), outline = 0)
-    # draw.line((95, 90, 95, 140), fill = 0)
-    # draw.line((70, 115, 120, 115), fill = 0)
-    # draw.arc((70, 90, 120, 140), 0, 360, fill = 0)
-    # draw.rectangle((10, 150, 60, 200), fill = 0)
-    # draw.chord((70, 150, 120, 200), 0, 360, fill = 0)
+    # draw.text((2, 0), 'Hello, world!', font = font35, fill = 0)
+    text = 'Hello, world!'
+    bbox = draw.textbbox((0, 0), text, font=font55)
+    text_width = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
+    x = (epd.height - text_width) // 2
+    y = (epd.width - text_height) // 2
+    draw.text((x, y), text, font=font55, fill=0)
+
+    # draw.text((2, 30), 'www.coreaderai.com', font = font35, fill = 0)
+    text2 = 'www.coreaderai.com'
+    bbox2 = draw.textbbox((0, 0), text2, font=font35)
+    text2_width = bbox2[2] - bbox2[0]
+    text2_height = bbox2[3] - bbox2[1]
+    x2 = 10  # Left margin
+    y2 = y + text_height + 10  # Below first text
+    draw.text((x2, y2), text2, font=font35, fill=0)
+
     epd.display(epd.getbuffer(Limage))
     time.sleep(10)
-
-    # logging.info("read bmp file")
-    # epd.init_Fast()
-    # Himage = Image.open('7in5_V2.bmp')
-    # epd.display_Fast(epd.getbuffer(Himage))
-    # time.sleep(2)
-
-    # logging.info("read bmp file on window")
-    # Himage2 = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    # bmp = Image.open('100x100.bmp')
-    # Himage2.paste(bmp, (50,10))
-    # epd.display_Fast(epd.getbuffer(Himage2))
-    # time.sleep(2)
-
-    # # Drawing on the Horizontal image
-    # logging.info("Drawing on the Horizontal image...")
-    # epd.init()
-    # Himage = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    # draw = ImageDraw.Draw(Himage)
-    # draw.text((10, 0), 'hello world', font = font24, fill = 0)
-    # draw.text((10, 20), '4.26inch e-Paper', font = font24, fill = 0)
-    # draw.text((150, 0), u'微雪电子', font = font24, fill = 0)
-    # draw.line((20, 50, 70, 100), fill = 0)
-    # draw.line((70, 50, 20, 100), fill = 0)
-    # draw.rectangle((20, 50, 70, 100), outline = 0)
-    # draw.line((165, 50, 165, 100), fill = 0)
-    # draw.line((140, 75, 190, 75), fill = 0)
-    # draw.arc((140, 50, 190, 100), 0, 360, fill = 0)
-    # draw.rectangle((80, 50, 130, 100), fill = 0)
-    # draw.chord((200, 50, 250, 100), 0, 360, fill = 0)
-    # epd.display_Base(epd.getbuffer(Himage))
-    # time.sleep(2)
-
-    # # partial update
-    # logging.info("5.show time")
-    # # epd.init()
-    # # epd.Clear()
-    # # Himage = Image.new('1', (epd.width, epd.height), 255)
-    # # draw = ImageDraw.Draw(Himage)
-    # num = 0
-    # while (True):
-    #     draw.rectangle((10, 120, 130, 170), fill = 255)
-    #     draw.text((10, 120), time.strftime('%H:%M:%S'), font = font24, fill = 0)
-    #     epd.display_Partial(epd.getbuffer(Himage))
-    #     num = num + 1
-    #     if(num == 10):
-    #         break
-
-    # '''4Gray display'''
-    # logging.info("4Gray display--------------------------------")
-    # epd.init_4GRAY()
-    
-    # Limage = Image.new('L', (epd.width, epd.height), 0)  # 255: clear the frame
-    # draw = ImageDraw.Draw(Limage)
-    # draw.text((20, 0), u'微雪电子', font = font35, fill = epd.GRAY1)
-    # draw.text((20, 35), u'微雪电子', font = font35, fill = epd.GRAY2)
-    # draw.text((20, 70), u'微雪电子', font = font35, fill = epd.GRAY3)
-    # draw.text((40, 110), 'hello world', font = font18, fill = epd.GRAY1)
-    # draw.line((10, 140, 60, 190), fill = epd.GRAY1)
-    # draw.line((60, 140, 10, 190), fill = epd.GRAY1)
-    # draw.rectangle((10, 140, 60, 190), outline = epd.GRAY1)
-    # draw.line((95, 140, 95, 190), fill = epd.GRAY1)
-    # draw.line((70, 165, 120, 165), fill = epd.GRAY1)
-    # draw.arc((70, 140, 120, 190), 0, 360, fill = epd.GRAY1)
-    # draw.rectangle((10, 200, 60, 250), fill = epd.GRAY1)
-    # draw.chord((70, 200, 120, 250), 0, 360, fill = epd.GRAY1)
-    # epd.display_4Gray(epd.getbuffer_4Gray(Limage))
-    # time.sleep(2)
-    
-    # #display 4Gra bmp
-    # Himage = Image.open('4in26_Scale.bmp')
-    # epd.display_4Gray(epd.getbuffer_4Gray(Himage))
-    # time.sleep(2)
-    
 
     logging.info("Clear...")
     epd.init()
