@@ -25,7 +25,7 @@ try:
 
     # Loading the logo
     logging.info("Loading and converting logo...")
-    logo = Image.open('logo.png')  # Your logo file
+    logo = Image.open('CoReaderAiLogo.png')  # Your logo file
     logo = logo.convert('L')  # Convert to grayscale
     logo = logo.convert('1')  # Convert to 1-bit monochrome (black/white)
     max_size = (200, 200) # Resize logo
