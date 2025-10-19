@@ -41,8 +41,8 @@ try:
     bbox2 = draw.textbbox((0, 0), text2, font=font35)
     text2_width = bbox2[2] - bbox2[0]
     text2_height = bbox2[3] - bbox2[1]
-    x2 = 10  # Left margin
-    y2 = y + text_height + 10  # Below first text
+    x2 = (epd.height - text2_width) // 2  # Left margin
+    y2 = y + text_height + 20  # Below first text
     draw.text((x2, y2), text2, font=font35, fill=0)
 
     epd.display(epd.getbuffer(Limage))
