@@ -28,12 +28,12 @@ try:
     logo = Image.open('CoReaderAiLogo.png')  # Your logo file
     logo = logo.convert('L')  # Convert to grayscale
     logo = logo.convert('1')  # Convert to 1-bit monochrome (black/white)
-    max_size = (300, 300) # Resize logo
+    max_size = (250, 250) # Resize logo
     logo.thumbnail(max_size, Image.Resampling.LANCZOS)  # Resize while preserving aspect ratio
 
     logo_width, logo_height = logo.size
     logo_x = (epd.height - logo_width) // 2  # Center horizontally
-    logo_y = 75  # Center vertically
+    logo_y = 100  # Center vertically
 
     # Drawing on the Vertical image
     logging.info("Drawing on the Vertical image...")
