@@ -12,8 +12,9 @@ SET_PIN = 12
 
 SWITCH_PINS = [UP_PIN, DOWN_PIN, LEFT_PIN, RIGHT_PIN, MID_PIN, SET_PIN]
 
-for pin in SWITCH_PINS:
-    GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+# for pin in SWITCH_PINS:
+#     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(SWITCH_PINS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def button_pressed(channel):
     print(f"Button on GPIO {channel} pressed!")
