@@ -1,7 +1,14 @@
 import RPi.GPIO as GPIO
 
+try:
+    import RPi.GPIO as GPIO
+except RuntimeError:
+    print("Error importing RPi.GPIO! Run with 'sudo python3 nav_test.py'")
+    exit(1)
+
 GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()  # Reset GPIO states
+GPIO.setwarnings(False)
+GPIO.cleanup()
 
 UP_PIN = 26
 DOWN_PIN = 19
@@ -12,9 +19,8 @@ SET_PIN = 12
 
 SWITCH_PINS = [UP_PIN, DOWN_PIN, LEFT_PIN, RIGHT_PIN, MID_PIN, SET_PIN]
 
-# for pin in SWITCH_PINS:
-#     GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.setup(SWITCH_PINS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+for pin in SWITCH_PINS:
+    GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def button_pressed(channel):
     print(f"Button on GPIO {channel} pressed!")
